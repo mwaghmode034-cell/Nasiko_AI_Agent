@@ -1,6 +1,7 @@
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Optional
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
+from langchain_core.messages import HumanMessage, AIMessage
 from langchain.agents import AgentExecutor, create_tool_calling_agent
 
 from tools import (
@@ -49,8 +50,11 @@ class Agent:
                 "and retrieve HR policy from the handbook. "
                 "IMPORTANT: When the user says 'Mark X as Y' or 'Update X' or 'Check X', the person's name is X. "
                 "'Mark', 'Update', 'Check', 'Set', 'Edit' are action verbs, NOT part of the name. "
-                "e.g. 'Mark Mahesh as complete' means name=Mahesh, NOT 'Mark Mahesh'. Company name is Nasiko."
+                "e.g. 'Mark Mahesh as complete' means name=Mahesh, NOT 'Mark Mahesh'. Company name is Nasiko. "
+                "ALSO: Use conversation context. If the user says 'his status', 'her leaves', 'their onboarding' etc., "
+                "refer to the person discussed in the previous messages (e.g. if they asked about Mahesh, 'his' means Mahesh)."
             ),
+            MessagesPlaceholder(variable_name="chat_history"),
             ("user", "{input}"),
             MessagesPlaceholder(variable_name="agent_scratchpad"),
         ])
@@ -58,7 +62,8 @@ class Agent:
         agent = create_tool_calling_agent(self.llm, self.tools, prompt)
         self.agent_executor = AgentExecutor(agent=agent, tools=self.tools, verbose=False)
         
-    def process_message(self, message_text: str) -> str:
-        # Standard execution loop
-        result = self.agent_executor.invoke({"input": message_text})
+    def process_message(self, message_text: str, chat_history: Optional[List] = None) -> str:
+        """Process message with optional conversation history for context (e.g. 'his' -> Mahesh)."""
+        history = chat_history or []
+        result = self.agent_executor.invoke({"input": message_text, "chat_history": history})
         return result["output"]
