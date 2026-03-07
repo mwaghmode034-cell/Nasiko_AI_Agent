@@ -10,7 +10,7 @@ class Agent:
     def __init__(self):
         self.name = "HR Automation Agent"
         self.tools = [tool_evaluate_candidate, tool_schedule_interview, tool_get_hr_policy]
-        self.llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0) # Updated model name for stability
+        self.llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0)
         
         prompt = ChatPromptTemplate.from_messages([
             ("system", "You are an HR Assistant. Use tools to evaluate candidates, schedule interviews, and check policies."),
