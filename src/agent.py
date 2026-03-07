@@ -51,8 +51,10 @@ class Agent:
                 "IMPORTANT: When the user says 'Mark X as Y' or 'Update X' or 'Check X', the person's name is X. "
                 "'Mark', 'Update', 'Check', 'Set', 'Edit' are action verbs, NOT part of the name. "
                 "e.g. 'Mark Mahesh as complete' means name=Mahesh, NOT 'Mark Mahesh'. Company name is Nasiko. "
-                "ALSO: Use conversation context. If the user says 'his status', 'her leaves', 'their onboarding' etc., "
-                "refer to the person discussed in the previous messages (e.g. if they asked about Mahesh, 'his' means Mahesh)."
+                "CRITICAL - Use context: If the message says 'Referring to [Name]:' then [Name] is the person. "
+                "If the user says 'his status', 'her leaves', 'mark leave for him', 'their onboarding' etc., "
+                "ALWAYS use the person from context (e.g. 'him' = Mahesh if we discussed Mahesh). NEVER ask for the name "
+                "if it can be inferred from conversation history or 'Referring to X' prefix."
             ),
             MessagesPlaceholder(variable_name="chat_history"),
             ("user", "{input}"),

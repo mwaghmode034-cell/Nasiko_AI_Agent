@@ -128,6 +128,13 @@ HR_MASTER_DB = {
 }
 
 
+def get_known_person_names():
+    """Return set of all known employee and candidate names for pronoun resolution."""
+    emp = set(HR_MASTER_DB["employees"].keys())
+    cand = set(HR_MASTER_DB["candidates"].keys())
+    return emp | cand
+
+
 def _normalize_person_name(name: str, check_employees: bool = True, check_candidates: bool = True) -> str:
     """Strip leading action verbs (Mark, Update, etc.) when remainder exists in DB. 'Mark Mahesh' -> 'Mahesh'."""
     s = name.strip()

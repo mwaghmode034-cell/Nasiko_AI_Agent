@@ -1,5 +1,6 @@
 import sys
 import os
+import re
 import uuid
 import uvicorn
 from datetime import datetime
@@ -10,6 +11,7 @@ from langchain_core.messages import HumanMessage, AIMessage
 # Ensure local imports work correctly
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from agent import Agent
+from tools import get_known_person_names
 
 app = FastAPI()
 hr_agent = Agent()
@@ -17,6 +19,28 @@ hr_agent = Agent()
 # In-memory conversation history per thread (thread_id -> list of messages)
 CONVERSATION_STORE = {}
 MAX_HISTORY_MESSAGES = 20  # Keep last 10 turns
+
+# Pronoun patterns (whole words) that need context resolution
+PRONOUN_PATTERN = re.compile(r"\b(him|her|his|their|he|she)\b", re.IGNORECASE)
+
+
+def _resolve_pronoun_context(user_text: str, history_list: list) -> str:
+    """If user message has pronouns and history exists, prepend context with the last discussed person."""
+    if not history_list or not PRONOUN_PATTERN.search(user_text):
+        return user_text
+    known = get_known_person_names()
+    last_name = None
+    for msg in reversed(history_list):
+        text = msg.get("content", "")
+        for name in known:
+            if re.search(rf"\b{re.escape(name)}\b", text, re.IGNORECASE):
+                last_name = name
+                break
+        if last_name:
+            break
+    if last_name:
+        return f"Referring to {last_name}: {user_text}"
+    return user_text
 
 @app.post("/")
 async def handle_request(request: Request):
@@ -40,18 +64,20 @@ async def handle_request(request: Request):
 
         # Get thread_id for conversation memory (client should send same id for a chat)
         thread_id = params.get("thread_id") or params.get("conversation_id") or data.get("thread_id")
-        chat_history = []
-        if thread_id:
-            history_list = CONVERSATION_STORE.get(thread_id, [])
-            # Convert to LangChain message format
-            chat_history = [
-                HumanMessage(content=h["content"]) if h["role"] == "user"
-                else AIMessage(content=h["content"])
-                for h in history_list[-MAX_HISTORY_MESSAGES:]
-            ]
+        # Support client-sent history (e.g. params.messages or params.history)
+        client_history = params.get("messages") or params.get("history") or []
+        history_list = list(client_history) if client_history else (CONVERSATION_STORE.get(thread_id, []) if thread_id else [])
+        chat_history = [
+            HumanMessage(content=h["content"]) if h["role"] == "user"
+            else AIMessage(content=h["content"])
+            for h in history_list[-MAX_HISTORY_MESSAGES:]
+        ]
+
+        # Resolve pronouns (him, her, his, etc.) using conversation context
+        user_text_resolved = _resolve_pronoun_context(user_text, history_list)
 
         # Process the message with our Agent (includes chat history for context)
-        agent_response = hr_agent.process_message(user_text, chat_history=chat_history)
+        agent_response = hr_agent.process_message(user_text_resolved, chat_history=chat_history)
 
         # Store in conversation history for next turn
         if thread_id:
