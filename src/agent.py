@@ -1,8 +1,7 @@
 from typing import List, Dict, Any
-from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain.agents import AgentExecutor, create_tool_calling_agent
-
 # Use the new tool names
 from tools import tool_evaluate_candidate, tool_schedule_interview, tool_get_hr_policy
 
@@ -10,7 +9,7 @@ class Agent:
     def __init__(self):
         self.name = "HR Automation Agent"
         self.tools = [tool_evaluate_candidate, tool_schedule_interview, tool_get_hr_policy]
-        self.llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0)
+        self.llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
         
         prompt = ChatPromptTemplate.from_messages([
             ("system", "You are an HR Assistant. Use tools to evaluate candidates, schedule interviews, and check policies."),

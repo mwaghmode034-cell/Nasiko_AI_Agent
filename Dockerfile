@@ -11,7 +11,7 @@ RUN pip install --no-cache-dir --default-timeout=1000 \
     python-dotenv>=1.0.0 \
     requests>=2.31.0 \
     "langchain>=0.2.0,<0.3.0" \
-    "langchain-google-genai" \
+    "langchain-openai" \
     click>=8.1.7
 
 ENV PYTHONUNBUFFERED=1

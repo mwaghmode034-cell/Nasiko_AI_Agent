@@ -1,5 +1,19 @@
+# Secrets (NEVER UPLOAD)
 .env
+
+# Python Cache and Compiled Files
 __pycache__/
 *.pyc
-.venv/
+*.pyo
+*.pyd
+
+# Virtual Environments
 venv/
+.venv/
+env/
+
+# IDE and OS Files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
