@@ -770,21 +770,53 @@ def tool_get_employee_status(name: str) -> str:
 def tool_get_hr_policy(topic: str) -> str:
     """
     Retrieve HR policy information from the Nasiko HR Handbook.
-    Topics include: leave, insurance, onboarding, travel, office hours, etc.
+    Use topic='all' or topic='list' to get all available policy sections.
+    Use a specific topic like 'leave', 'travel', 'insurance', 'onboarding',
+    'attendance', 'compensation', 'performance', 'exit', 'grievance',
+    'security', 'conduct' to get that section's policies.
+    Always call this tool for ANY policy or company-rules related question.
     """
+    BROAD_TRIGGERS = {"all", "list", "policies", "policy", "overview", "everything", "sections", "topics", "company policies"}
+
     current_dir = os.path.dirname(os.path.abspath(__file__))
     file_path = os.path.join(current_dir, "hr_handbook.txt")
     try:
         with open(file_path, "r", encoding="utf-8") as f:
             content = f.read()
-        # Simple keyword filter to surface most relevant lines
-        topic_lower = topic.lower()
-        relevant_lines = [line for line in content.splitlines() if topic_lower in line.lower()]
+
+        topic_lower = topic.lower().strip()
+
+        # Broad query — return all section headers and their first policy line
+        if topic_lower in BROAD_TRIGGERS or "polic" in topic_lower and len(topic_lower) < 15:
+            sections = []
+            current_section = None
+            for line in content.splitlines():
+                line = line.strip()
+                if line.startswith("SECTION"):
+                    current_section = line
+                    sections.append(f"\n{line}")
+                elif current_section and line and not line.startswith("-") and not line.startswith("="):
+                    sections.append(f"  {line}")
+                    current_section = None  # only first line per section
+            return (
+                "Nasiko HR Handbook — Available Policy Sections:\n"
+                + "\n".join(sections)
+                + "\n\nAsk about any section by name for full details."
+            )
+
+        # Specific topic — return all matching lines from handbook
+        relevant_lines = [
+            line for line in content.splitlines()
+            if topic_lower in line.lower() and line.strip()
+        ]
         if relevant_lines:
-            return f"HR Policy for '{topic}':\n" + "\n".join(relevant_lines)
-        return f"HR Handbook (no exact match for '{topic}'):\n{content}"
+            return f"Nasiko HR Policy — '{topic}':\n" + "\n".join(relevant_lines)
+
+        # Fallback — return full handbook
+        return f"No exact match for '{topic}'. Full Nasiko HR Handbook:\n{content}"
+
     except FileNotFoundError:
-        return "Policy handbook file not found. Please ensure hr_handbook.txt is present."
+        return "Policy handbook file not found. Ensure hr_handbook.txt is in the same directory."
     except Exception as e:
         return f"Error reading handbook: {e}"
 

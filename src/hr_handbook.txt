@@ -1,6 +1,166 @@
-COMPANY: Nasiko
-OFFICE HOURS: Our standard office hours are 9:00 AM to 6:00 PM, Monday through Friday.
-LEAVE POLICY: Employees are entitled to 20 days of paid leave per year.
-INSURANCE: Health insurance coverage begins on the first day of employment.
-ONBOARDING: All new hires must complete their documentation within 3 business days.
-TRAVEL: Business travel expenses are reimbursed if pre-approved by a manager.
+================================================================
+         NASIKO — EMPLOYEE HR HANDBOOK (2026 EDITION)
+================================================================
+Last Updated: March 2026 | Version: 2.0
+Website: https://www.nasiko.com | Contact: karan@foliumlabs.net
+GitHub: https://github.com/Nasiko-Labs/nasiko
+Registered: Bangalore, Karnataka, India (CIN: U62091KA2026PTC214207)
+================================================================
+
+
+----------------------------------------------------------------
+SECTION 1: COMPANY OVERVIEW
+----------------------------------------------------------------
+COMPANY: Nasiko (Nasiko Private Limited)
+TAGLINE: Shaping Agentic Systems of Tomorrow.
+INDUSTRY: Artificial Intelligence Research and Infrastructure.
+WHAT NASIKO IS: Nasiko is an AI research lab focused on agentic intelligence — how AI agents discover, collaborate, and execute across complex, distributed environments. Nasiko is NOT an HR company. HR automation is one of many real-world use cases that can be built on top of Nasiko's agentic infrastructure.
+WHAT NASIKO BUILDS: Nasiko builds the intelligent agent control plane — a unified registry and coordination layer that allows AI agents to find each other, communicate securely, and operate autonomously across systems and organizations.
+CORE RESEARCH AREAS: Distributed agent orchestration, adaptive computation, agent governance, AI infrastructure, and trust engineering.
+VISION: Nasiko believes the next leap in AI will not come from larger models, but from better coordination — how agents understand each other, align on intent, and operate within boundaries of safety and governance.
+INSPIRATION: Nasiko is inspired by Project NANDA (https://nanda.media.mit.edu/), created by Prof. Ramesh Raskar at MIT Media Lab — building the foundation of an agentic web, economy, and society.
+BUILDATHON: Nasiko organizes the Nasiko Buildathon — a hackathon where participants build AI agents for real-world use cases such as HR automation, recruitment agents, and onboarding agents, using Nasiko's agentic infrastructure as the backbone. This HR agent is a Buildathon submission, not Nasiko's core product.
+FOUNDERS: Karan Bharadwaj (Co-Founder, Product and Architecture) and Chinar Kanwar (Co-Founder). Incorporated January 15, 2026.
+HEADQUARTERS: Bangalore, Karnataka, India.
+WEBSITE: https://www.nasiko.com
+COMPANY PRINCIPLES:
+  - Trust by Design: Safety and accountability are built into the system's core.
+  - Transparency and Scale: Understanding how intelligence operates is as important as scaling it.
+  - Collaboration as Computation: The true power of AI emerges when agents work together.
+WORKING MODEL: Hybrid — employees are expected in office at least 3 days per week (Tuesday, Wednesday, Thursday). Monday and Friday are flexible remote days.
+
+
+----------------------------------------------------------------
+SECTION 2: OFFICE HOURS & ATTENDANCE
+----------------------------------------------------------------
+OFFICE HOURS: Standard office hours are 9:00 AM to 6:00 PM, Monday through Friday.
+FLEXIBLE HOURS: With manager approval, employees may shift their schedule to 8:00 AM–5:00 PM or 10:00 AM–7:00 PM.
+ATTENDANCE: Employees must maintain a minimum of 90% attendance per month. Consistent late arrivals (3 or more in a month) will be flagged in the performance review.
+REMOTE WORK POLICY: Remote work is permitted on Monday and Friday. Employees must be reachable on Slack/email during core hours (10:00 AM to 4:00 PM) regardless of location.
+LUNCH BREAK: A mandatory 1-hour lunch break is provided between 1:00 PM and 2:00 PM.
+OVERTIME: Overtime beyond 9 hours/day must be pre-approved by a manager. Compensatory off (comp-off) is provided for weekend work.
+
+
+----------------------------------------------------------------
+SECTION 3: LEAVE POLICY
+----------------------------------------------------------------
+ANNUAL LEAVE: Employees are entitled to 20 days of paid annual leave per calendar year.
+SICK LEAVE: 10 sick leave days per year. Sick leave beyond 2 consecutive days requires a medical certificate.
+CASUAL LEAVE: 5 casual leave days per year for personal emergencies. Cannot be carried forward.
+MATERNITY LEAVE: 26 weeks (182 days) of paid maternity leave as per the Maternity Benefit Act, 1961.
+PATERNITY LEAVE: 10 days of paid paternity leave within 3 months of the child's birth.
+BEREAVEMENT LEAVE: 5 days of paid leave for the loss of an immediate family member (spouse, parent, child, sibling).
+PUBLIC HOLIDAYS: Nasiko observes 12 national and regional public holidays per year. The annual holiday list is published in January.
+LEAVE ENCASHMENT: Unused earned leave (maximum 10 days) can be encashed at the end of the financial year.
+LEAVE CARRY FORWARD: Up to 10 earned leave days can be carried forward to the next calendar year. Casual and sick leaves cannot be carried forward.
+LEAVE APPLICATION: Leave must be applied at least 2 days in advance for planned leaves. Emergency leave can be applied on the same day with manager notification.
+HALF-DAY LEAVE: Half-day leaves are available and deduct 0.5 days from the respective leave balance.
+
+
+----------------------------------------------------------------
+SECTION 4: COMPENSATION & PAYROLL
+----------------------------------------------------------------
+SALARY PAYMENT: Salaries are credited on the last working day of each month directly to the employee's registered bank account.
+PAY SLIP: Digital pay slips are shared via the HR portal by the 1st of every month.
+SALARY REVISION: Annual salary appraisals take place in April based on performance reviews conducted in March.
+PERFORMANCE BONUS: Employees with a performance rating of "Exceeds Expectations" or above are eligible for an annual bonus of up to 15% of their CTC.
+REFERRAL BONUS: Employees who refer a candidate that is successfully hired and completes 3 months receive a referral bonus of INR 10,000.
+TAX DEDUCTION: TDS (Tax Deducted at Source) is applied as per applicable Income Tax slabs. Employees should submit investment proofs by January 31st each year.
+EXPENSE REIMBURSEMENT: Work-related expenses (other than travel) must be submitted within 15 days of incurring them with valid receipts.
+
+
+----------------------------------------------------------------
+SECTION 5: HEALTH & INSURANCE
+----------------------------------------------------------------
+HEALTH INSURANCE: Group health insurance coverage begins on the first day of employment. Coverage includes the employee, spouse, and up to 2 dependent children.
+INSURANCE COVERAGE AMOUNT: INR 5,00,000 per family per annum (floater policy).
+DENTAL & VISION: Dental and vision cover is included under the group policy up to INR 10,000 per year.
+LIFE INSURANCE: Group term life insurance is provided with coverage of 3x annual CTC, effective from the date of joining.
+ACCIDENTAL INSURANCE: Personal accident insurance covers permanent disability or death due to accidents up to INR 25,00,000.
+WELLNESS PROGRAM: Nasiko provides an annual wellness allowance of INR 5,000 for gym memberships, meditation apps, or other wellness activities.
+MENTAL HEALTH: Free access to 6 confidential counselling sessions per year via our EAP (Employee Assistance Program). Contact hr@nasiko.com to avail.
+
+
+----------------------------------------------------------------
+SECTION 6: ONBOARDING
+----------------------------------------------------------------
+ONBOARDING DURATION: The standard onboarding period is 30 days from the date of joining.
+DOCUMENTATION DEADLINE: All new hires must submit the required documents (offer letter acceptance, ID proofs, educational certificates, previous employment relieving letter, bank details) within 3 business days of joining.
+BACKGROUND CHECK: A mandatory background verification (BGV) is initiated on the first day. Offer may be rescinded if BGV fails.
+LAPTOP & EQUIPMENT: Laptop and required peripherals are allocated on Day 1. Employees are responsible for company equipment.
+ID CARD: Company ID cards are issued within 3 working days of joining.
+SYSTEM ACCESS: Email, Slack, GitHub, Jira, and role-specific tool access are set up by the IT team within 24 hours of joining.
+BUDDY PROGRAM: Every new hire is assigned an onboarding buddy for the first 30 days to assist with team integration.
+ORIENTATION: A mandatory company orientation session is conducted every Monday for all new joiners of that week, covering culture, tools, processes, and team introductions.
+PROBATION PERIOD: New employees serve a probation period of 3 months. Performance is reviewed at the end of probation before confirmation.
+
+
+----------------------------------------------------------------
+SECTION 7: TRAVEL POLICY
+----------------------------------------------------------------
+TRAVEL APPROVAL: All business travel must be pre-approved by the reporting manager and the Finance team at least 3 days in advance.
+DOMESTIC TRAVEL: Economy class flights and 3-star hotels are the standard for domestic travel. Upgrades require VP-level approval.
+INTERNATIONAL TRAVEL: Business class is permitted for flights over 6 hours. 4-star hotels are approved for international travel.
+DAILY ALLOWANCE (DOMESTIC): INR 1,500 per day for meals and local transport within India.
+DAILY ALLOWANCE (INTERNATIONAL): USD 75 per day for international travel destinations.
+TRAVEL BOOKING: All bookings must be made through the company's approved travel portal or via the admin team.
+REIMBURSEMENT TIMELINE: Travel expense claims must be submitted within 7 days of returning. Claims submitted after 30 days will not be processed.
+PERSONAL TRAVEL EXTENSION: If an employee extends a business trip for personal reasons, the additional cost is borne entirely by the employee.
+
+
+----------------------------------------------------------------
+SECTION 8: CODE OF CONDUCT
+----------------------------------------------------------------
+PROFESSIONAL BEHAVIOUR: All employees are expected to maintain respectful, professional conduct with colleagues, clients, and vendors at all times.
+ANTI-HARASSMENT: Nasiko has a zero-tolerance policy towards sexual harassment, bullying, discrimination based on gender, religion, caste, or disability. Violations will result in immediate disciplinary action.
+POSH COMPLIANCE: Nasiko is fully compliant with the Prevention of Sexual Harassment (POSH) Act. All employees must complete the mandatory POSH training within 30 days of joining.
+CONFLICT OF INTEREST: Employees must disclose any personal relationships or financial interests that may conflict with their professional duties to HR.
+SOCIAL MEDIA POLICY: Employees must not share confidential company information, client data, or unannounced product details on social media. Nasiko branding must not be used without approval.
+DRESS CODE: Smart casual attire is expected in the office. Formals are required during client visits or presentations.
+
+
+----------------------------------------------------------------
+SECTION 9: PERFORMANCE & GROWTH
+----------------------------------------------------------------
+PERFORMANCE REVIEW CYCLE: Reviews are conducted twice a year — mid-year in September and annual in March.
+RATING SCALE: 1 (Below Expectations) | 2 (Meets Expectations) | 3 (Exceeds Expectations) | 4 (Outstanding).
+GOAL SETTING: Employees and managers set OKRs (Objectives and Key Results) at the start of each quarter.
+PROMOTION POLICY: Promotions are considered during the annual review cycle. Eligibility requires at least 12 months in the current role and a rating of 3 or above.
+LEARNING & DEVELOPMENT: Nasiko provides INR 20,000 per employee per year for upskilling (courses, certifications, conferences). Requires manager approval.
+INTERNAL MOBILITY: Employees can apply for internal job openings after completing 12 months in their current role.
+
+
+----------------------------------------------------------------
+SECTION 10: SEPARATION & EXIT
+----------------------------------------------------------------
+NOTICE PERIOD: The standard notice period is 60 days for all employees. Senior roles (Manager and above) have a 90-day notice period.
+NOTICE BUYOUT: Notice period can be bought out at the mutual agreement of the employee and the company.
+FULL & FINAL SETTLEMENT: Full and final (F&F) settlement is processed within 45 days of the last working day.
+EXIT INTERVIEW: A mandatory exit interview is conducted by HR before the last working day.
+KNOWLEDGE TRANSFER: Employees are required to complete a structured knowledge transfer to their replacement or team before leaving.
+NON-DISCLOSURE: Employees must return all company property and sign the NDA exit acknowledgement before their last day. Confidentiality obligations survive employment termination.
+REHIRE POLICY: Former employees who left on good terms may be considered for rehire after a gap of 6 months, subject to position availability.
+
+
+----------------------------------------------------------------
+SECTION 11: GRIEVANCE & ESCALATION
+----------------------------------------------------------------
+GRIEVANCE POLICY: Employees with a workplace concern should first raise it with their direct manager. If unresolved, escalate to HR within 7 days.
+GRIEVANCE RESOLUTION: HR will acknowledge the grievance within 2 working days and resolve it within 15 working days.
+ANONYMOUS REPORTING: Employees can report ethical violations, harassment, or policy breaches anonymously via grievance@nasiko.com.
+ESCALATION PATH: Employee → Manager → HR Business Partner → HR Head → CEO.
+
+
+----------------------------------------------------------------
+SECTION 12: IT & DATA SECURITY
+----------------------------------------------------------------
+DEVICE POLICY: Company laptops must not be used for personal purposes. Installation of unauthorized software is prohibited.
+DATA SECURITY: All customer data, source code, and business documents are confidential. Sharing them outside the organization without approval is a termination-level offense.
+PASSWORD POLICY: Passwords must be at least 12 characters with uppercase, lowercase, number, and special character. Passwords must be changed every 90 days.
+VPN: VPN must be used when accessing company systems from outside the office network.
+INCIDENT REPORTING: Any security breach, phishing attempt, or data loss must be reported to it-security@nasiko.com within 1 hour of discovery.
+
+
+================================================================
+END OF NASIKO HR HANDBOOK — For queries, contact hr@nasiko.com
+================================================================
