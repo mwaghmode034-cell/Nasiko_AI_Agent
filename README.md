@@ -246,7 +246,6 @@ function Send-HR($prompt) {
 
 ---
 
-## 👨‍💻 Built by
-
+## 👨‍💻 Made with ❤️ by Team Prompt_maavale
 Team participating in the **Nasiko Buildathon 2026**
 Sponsored by [Nasiko](https://www.nasiko.com) — *Shaping Agentic Systems of Tomorrow*
