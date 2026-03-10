@@ -19,6 +19,7 @@ from tools import (
     tool_get_employee_status,
     tool_get_onboarding_checklist_status,
     tool_list_all,
+    tool_draft_email,
 )
 
 logger = logging.getLogger(__name__)
@@ -53,6 +54,10 @@ QUESTION TYPE 2 — About THIS AGENT ("what do you do", "what can you help with"
 - **Onboarding**: Track and update onboarding checklist (docs, bg_check, laptop, id_card, bank_details, system_access, orientation).
 - **Interviews**: List, check slots, update status/outcome/interviewer, cancel interviews.
 - **HR Policies**: ALWAYS call tool_get_hr_policy for ANY policy or company rules question — NEVER answer from memory. Use topic='all' for broad questions like "what are the policies" or "list all policies". Use specific topic like 'leave', 'travel', 'insurance', 'onboarding', 'attendance', 'compensation', 'performance', 'exit', 'conduct', 'security' for targeted queries.
+- **Email Drafting**: Draft professional HR emails using tool_draft_email. Supported types:
+    CANDIDATE → 'interview_invite', 'shortlist', 'rejection', 'offer_letter'
+    EMPLOYEE  → 'onboarding_welcome', 'onboarding_pending_reminder', 'leave_approved', 'leave_rejected', 'probation_confirmation', 'performance_review', 'exit_acknowledgement'
+  Pull all context (email, role, interview date/time, leave balance, pending onboarding items) automatically from DB. Use extra='key=value,key=value' only for info not in DB (e.g. days, leave type, interview mode).
 - **Overview**: List all employees, candidates, or interviews on request.
 
 ## Name resolution rules (CRITICAL):
@@ -90,6 +95,7 @@ class Agent:
             tool_get_employee_status,
             tool_get_onboarding_checklist_status,
             tool_list_all,
+            tool_draft_email,
         ]
 
         self.llm = ChatOpenAI(

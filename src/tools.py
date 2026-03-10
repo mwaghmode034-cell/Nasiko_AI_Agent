@@ -867,3 +867,357 @@ def tool_list_all(category: str = "all") -> str:
             output.append("No interviews scheduled.")
 
     return "\n".join(output) if output else "No data found."
+
+
+# ---------------------------------------------------------------------------
+# Email Drafting Tool
+# ---------------------------------------------------------------------------
+
+# Email templates keyed by mail_type
+_EMAIL_TEMPLATES: dict[str, dict] = {
+
+    # ── Candidate emails ──────────────────────────────────────────────────
+
+    "interview_invite": {
+        "subject": "Interview Invitation – {role} at {company}",
+        "body": """Dear {name},
+
+Thank you for applying to {company}. We are pleased to invite you for an interview for the {role} position.
+
+Interview Details:
+  Date       : {date}
+  Time       : {time}
+  Interviewer: {interviewer}
+  Mode       : {mode}
+
+Please confirm your availability by replying to this email. If you need to reschedule, kindly let us know at least 24 hours in advance.
+
+We look forward to speaking with you.
+
+Best regards,
+HR Team
+{company}""",
+    },
+
+    "shortlist": {
+        "subject": "Application Update – You've Been Shortlisted | {company}",
+        "body": """Dear {name},
+
+Thank you for your interest in {company} and for taking the time to apply.
+
+We are happy to inform you that after reviewing your profile, you have been shortlisted for the next stage of our selection process.
+
+Your Profile Summary:
+  Skills    : {skills}
+  Score     : {score}/100
+
+Our HR team will reach out shortly with interview details. In the meantime, feel free to reach out if you have any questions.
+
+Best regards,
+HR Team
+{company}""",
+    },
+
+    "rejection": {
+        "subject": "Application Status Update | {company}",
+        "body": """Dear {name},
+
+Thank you for your interest in {company} and for the time you invested in applying.
+
+After careful consideration of your application, we regret to inform you that we will not be moving forward with your candidacy at this time. This decision was based on the current requirements of the role.
+
+We appreciate your effort and encourage you to apply again for future openings that align with your skills.
+
+We wish you all the best in your career journey.
+
+Best regards,
+HR Team
+{company}""",
+    },
+
+    "offer_letter": {
+        "subject": "Offer of Employment – {role} at {company}",
+        "body": """Dear {name},
+
+We are delighted to extend an offer of employment for the position of {role} in the {department} department at {company}.
+
+Offer Details:
+  Role           : {role}
+  Department     : {department}
+  Employee ID    : {employee_id}
+  Date of Joining: {joining_date}
+
+Please review the attached terms and conditions. Kindly sign and return the acceptance copy within 3 business days.
+
+We are excited to welcome you to the {company} family and look forward to your contributions.
+
+Best regards,
+HR Team
+{company}""",
+    },
+
+    # ── Employee emails ───────────────────────────────────────────────────
+
+    "onboarding_welcome": {
+        "subject": "Welcome to {company} – Onboarding Details",
+        "body": """Dear {name},
+
+Welcome to {company}! We are thrilled to have you on board as {role} in the {department} department.
+
+Your onboarding checklist includes the following items to be completed:
+  ☐ Document Verification
+  ☐ Background Check
+  ☐ Laptop Allocation
+  ☐ ID Card Issuance
+  ☐ Bank Details Submission
+  ☐ System Access Setup
+  ☐ Company Orientation
+
+Please ensure all documentation is submitted within 3 business days of joining as per company policy.
+
+Your buddy will be in touch soon to help you settle in. If you have any questions, please reach out to hr@{company_lower}.com.
+
+Once again, welcome aboard!
+
+Best regards,
+HR Team
+{company}""",
+    },
+
+    "onboarding_pending_reminder": {
+        "subject": "Reminder: Pending Onboarding Items | {company}",
+        "body": """Dear {name},
+
+This is a friendly reminder that the following onboarding items are still pending for your profile:
+
+{pending_items}
+
+Please complete the above at the earliest to ensure a smooth start. All documents must be submitted within 3 business days of joining as per {company} policy.
+
+If you need any assistance, please reply to this email or reach out to your onboarding buddy.
+
+Best regards,
+HR Team
+{company}""",
+    },
+
+    "leave_approved": {
+        "subject": "Leave Approved – {leave_type} Leave | {company}",
+        "body": """Dear {name},
+
+Your leave request has been approved.
+
+Leave Details:
+  Type          : {leave_type}
+  Days Approved : {days}
+  Remaining Balance: {balance} days
+
+Please ensure proper handover of your responsibilities before your leave begins. For any urgent matters, coordinate with your manager {manager}.
+
+Best regards,
+HR Team
+{company}""",
+    },
+
+    "leave_rejected": {
+        "subject": "Leave Request Update | {company}",
+        "body": """Dear {name},
+
+Thank you for submitting your leave request.
+
+Unfortunately, we are unable to approve {days} days of {leave_type} leave at this time as it exceeds your available balance of {balance} days.
+
+Please plan accordingly or contact HR if you need further clarification.
+
+Best regards,
+HR Team
+{company}""",
+    },
+
+    "probation_confirmation": {
+        "subject": "Employment Confirmation – Probation Completion | {company}",
+        "body": """Dear {name},
+
+We are pleased to inform you that you have successfully completed your probation period at {company}.
+
+Effective from today, your employment is confirmed as a permanent member of the {department} team in the role of {role}.
+
+We appreciate your dedication and contributions so far, and we look forward to your continued growth with us.
+
+Best regards,
+HR Team
+{company}""",
+    },
+
+    "performance_review": {
+        "subject": "Performance Review Notification | {company}",
+        "body": """Dear {name},
+
+This is to inform you that your performance review is scheduled as part of our bi-annual review cycle.
+
+Please ensure your self-assessment and OKR updates are submitted before the review meeting. Your manager will reach out to schedule the review session.
+
+If you have any questions about the review process, please refer to the HR handbook or contact HR directly.
+
+Best regards,
+HR Team
+{company}""",
+    },
+
+    "exit_acknowledgement": {
+        "subject": "Resignation Acknowledgement | {company}",
+        "body": """Dear {name},
+
+We acknowledge receipt of your resignation. As per company policy, your notice period is 60 days (90 days for senior roles).
+
+Next Steps:
+  1. Complete knowledge transfer to your team/replacement
+  2. Return all company assets (laptop, ID card, access cards)
+  3. Sign the NDA exit acknowledgement
+  4. Attend the exit interview with HR
+  5. Full & Final settlement will be processed within 45 days of your last working day
+
+We appreciate your contributions to {company} and wish you the very best in your future endeavors.
+
+Best regards,
+HR Team
+{company}""",
+    },
+}
+
+
+@tool
+def tool_draft_email(
+    name: str,
+    mail_type: str,
+    extra: str = "",
+) -> str:
+    """
+    Draft a professional HR email for a candidate or employee.
+
+    mail_type options:
+      FOR CANDIDATES:
+        - 'interview_invite'         : Invite candidate for interview (uses scheduled interview data)
+        - 'shortlist'                : Inform candidate they are shortlisted
+        - 'rejection'                : Politely reject a candidate
+        - 'offer_letter'             : Send job offer to hired candidate
+
+      FOR EMPLOYEES:
+        - 'onboarding_welcome'       : Welcome email with onboarding checklist
+        - 'onboarding_pending_reminder' : Remind employee of pending onboarding items
+        - 'leave_approved'           : Confirm leave approval (use extra='days=3,type=Sick')
+        - 'leave_rejected'           : Inform leave rejection (use extra='days=10,type=Earned')
+        - 'probation_confirmation'   : Confirm permanent employment after probation
+        - 'performance_review'       : Notify about upcoming performance review
+        - 'exit_acknowledgement'     : Acknowledge employee resignation
+
+    extra: optional key=value pairs comma-separated for additional context
+           e.g. extra='days=3,type=Sick,mode=Google Meet'
+    """
+    if mail_type not in _EMAIL_TEMPLATES:
+        available = ", ".join(_EMAIL_TEMPLATES.keys())
+        return f"Unknown mail_type '{mail_type}'. Available: {available}"
+
+    # Parse extra key=value pairs
+    extra_data: dict = {}
+    if extra:
+        for part in extra.split(","):
+            part = part.strip()
+            if "=" in part:
+                k, v = part.split("=", 1)
+                extra_data[k.strip()] = v.strip()
+
+    name_key = _normalize_person_name(name, True, True)
+    tmpl = _EMAIL_TEMPLATES[mail_type]
+
+    # Build context dict from DB + extras
+    ctx: dict = {
+        "name": name_key,
+        "company": COMPANY_NAME,
+        "company_lower": COMPANY_NAME.lower(),
+        "role": "the applied role",
+        "department": "TBD",
+        "employee_id": "N/A",
+        "joining_date": "TBD",
+        "manager": "your manager",
+        "skills": "",
+        "score": "",
+        "date": "TBD",
+        "time": "TBD",
+        "interviewer": "TBD",
+        "mode": "In-person / Video Call",
+        "days": extra_data.get("days", "N/A"),
+        "leave_type": extra_data.get("type", "Earned"),
+        "balance": "N/A",
+        "pending_items": "",
+    }
+    ctx.update(extra_data)
+
+    # Pull live data from DB
+    if name_key in HR_MASTER_DB["candidates"]:
+        c = HR_MASTER_DB["candidates"][name_key]
+        ctx["skills"] = c.get("skills", "")
+        ctx["score"] = str(c.get("score", ""))
+        ctx["role"] = extra_data.get("role", "the applied position")
+        sched = c.get("interview_scheduled")
+        if isinstance(sched, dict):
+            ctx["date"] = sched.get("date", "TBD")
+            ctx["time"] = sched.get("time", "TBD")
+        # Interviewer from interview record
+        slot_key = _get_slot_key(ctx["date"], ctx["time"])
+        rec = HR_MASTER_DB["interviews"].get(slot_key, {})
+        ctx["interviewer"] = rec.get("interviewer") or extra_data.get("interviewer", "TBD")
+
+    if name_key in HR_MASTER_DB["employees"]:
+        e = HR_MASTER_DB["employees"][name_key]
+        ctx["role"] = e.get("role", ctx["role"])
+        ctx["department"] = e.get("department", "TBD")
+        ctx["employee_id"] = e.get("employee_id", "N/A")
+        ctx["joining_date"] = e.get("joining_date", "TBD")
+        ctx["manager"] = e.get("manager") or "your manager"
+        ctx["balance"] = str(e["leaves"]["balance"])
+
+        # Build pending onboarding items list
+        if mail_type == "onboarding_pending_reminder":
+            onb = e["onboarding"]
+            FIELD_LABELS = {
+                "docs": "Document Verification",
+                "bg_check": "Background Check",
+                "laptop": "Laptop Allocation",
+                "id_card": "ID Card Issuance",
+                "bank_details": "Bank Details Submission",
+                "system_access": "System Access Setup",
+                "orientation": "Company Orientation",
+            }
+            pending = []
+            for field, label in FIELD_LABELS.items():
+                val = onb.get(field)
+                if val is False or val == "Pending":
+                    pending.append(f"  ☐ {label}")
+            ctx["pending_items"] = "\n".join(pending) if pending else "  ✅ All items complete."
+
+    # Format template
+    try:
+        subject = tmpl["subject"].format(**ctx)
+        body = tmpl["body"].format(**ctx)
+    except KeyError as e:
+        return f"Error formatting email — missing field: {e}. Provide it via extra='field=value'."
+
+    return (
+        f"📧 EMAIL DRAFT\n"
+        f"{'─' * 50}\n"
+        f"TO      : {name_key} <{_get_email(name_key)}>\n"
+        f"SUBJECT : {subject}\n"
+        f"{'─' * 50}\n"
+        f"{body}\n"
+        f"{'─' * 50}"
+    )
+
+
+def _get_email(name_key: str) -> str:
+    """Helper to fetch email from DB."""
+    if name_key in HR_MASTER_DB["employees"]:
+        return HR_MASTER_DB["employees"][name_key].get("email", "N/A")
+    if name_key in HR_MASTER_DB["candidates"]:
+        return HR_MASTER_DB["candidates"][name_key].get("email", "N/A")
+    return "N/A"
